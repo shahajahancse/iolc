@@ -3,7 +3,6 @@ name: Deploy to Live Server (FTP)
 on:
   push:
     branches:
-      - main
       - msa
   workflow_dispatch:
 
