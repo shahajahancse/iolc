@@ -1,0 +1,41 @@
+name: Deploy to Live Server (FTP)
+
+on:
+  push:
+    branches:
+      - main
+      - msa
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: PHP Lint & FTP Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check PHP Syntax (CI)
+        run: |
+          find application -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+
+      - name: Deploy files via FTP (CD)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github*/**
+            **/.user.ini
+            application/config/config.php
+            application/config/database.php
+            application/logs/**
+            application/cache/**
+            uploads/**
+            attn_data/**
+            vendor/**

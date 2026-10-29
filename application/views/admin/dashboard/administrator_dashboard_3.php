@@ -110,6 +110,7 @@ h5,h4 {
                     
         </h4>
     </div>
+    <?php /*
     <div class='col-md-12 row'>
         <div class="col-md-6">
             <div class="d_card" style="background: aliceblue;">
@@ -583,10 +584,12 @@ h5,h4 {
             </div>
         </div>
     </div>
+    */ ?>
 
   
 </div>
 
+<?php /*
 <script>
 // $(document).ready(function() {
 //     $('.c_card').hover(function() {
@@ -1107,4 +1110,5 @@ function get_lunch_unpaid(e) {
         
     }
 </script>
+*/ ?>
 

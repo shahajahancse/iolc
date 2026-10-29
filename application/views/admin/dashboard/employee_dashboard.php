@@ -6,6 +6,7 @@ $user_data = $user_data[0];
 
 $get_animate = $this->Xin_model->get_content_animate();
 $userid = $session['user_id'];
+/*
 $result = $this->db->order_by('id', 'desc')->get('lunch_payment', 1)->row();
 
 $empdata = $this->db
@@ -46,11 +47,6 @@ while ($i <= date("Y-m")) {
     $i = date('Y-m', strtotime('+1 months' . $i));
 }
 
-/*$currentMonth = date('n');
-$monthNames = array();
-for ($i = 1; $i <= $currentMonth; $i++) {
-    $monthNames[] = date('F', mktime(0, 0, 0, $i, 1));
-}*/
 // end
 
 // get employee shift schedule information
@@ -87,6 +83,7 @@ if (!empty($punch_time)) {
     $out_time = date('h.i A', strtotime($punch_time->clock_out));
 }
 // end punch time
+*/
 
 //get employee name
 $name = $this->db->select('first_name,last_name')
@@ -95,6 +92,7 @@ $name = $this->db->select('first_name,last_name')
     ->row();
 // dd($in_time);
 
+/*
 // Get the current Unix timestamp
 $currentTimestamp = time();
 
@@ -154,7 +152,7 @@ $all_notice = $this->db->select('*')->get('xin_events')->result();
 
 $leavemonth = $this->Salary_model->leave_count_status($userid, date('Y-m-01'), date('Y-m-t'), 2);
 $totalleavem = $leavemonth->el + $leavemonth->sl;
-
+*/
 ?>
 
 
@@ -466,13 +464,12 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
     <div class="box-widget widget-user-2 container">
         <!-- Add the bg col-md-3or to the header using any of the bg-* classes  -->
         <div class="widget-user-header layout">
-            <div class="col-md-7">
-                <h4 class="widget-user-username welcome-hrsale-user" style="margin-top:5px;">
-                    Welcome back, <span
-                        style="color:#599AE7 "><?php echo $name->first_name . ' ' . $name->last_name ?></span>
-                </h4>
-            </div>
+            <h4 class="widget-user-username welcome-hrsale-user" style="margin-top:5px;">
+                Welcome back, <span
+                    style="color:#599AE7 "><?php echo $name->first_name . ' ' . $name->last_name ?>!</span>
+            </h4>
 
+            <?php /*
             <div class="col-md-4">
                 <div class="right-group">
                     <div class="gp-1">
@@ -486,6 +483,7 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
                     </div>
                 </div>
             </div>
+            */ ?>
 
             <div class="breadcrumbs-hr-top">
                 <div class="breadcrumb-wrapper col-xs-12">
@@ -500,6 +498,7 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
         </div>
     </div>
 
+    <?php /*
     <!-- Today attendance info -->
     <div class="row equal-height-row " style="margin-top:10px">
         <div class="col-sm-4 col_style">
@@ -674,6 +673,7 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
             </div>
         </div>
     </div>
+    */ ?>
 
 
 
@@ -681,6 +681,7 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
     <!-- lunch part -->
     
 </div>
+<?php /*
 <!-- notice modal -->
 <!-- Modal -->
 <div id="myModals" class="modal fade" role="dialog">
@@ -837,3 +838,4 @@ $totalleavem = $leavemonth->el + $leavemonth->sl;
         }
     });
 </script>
+*/ ?>

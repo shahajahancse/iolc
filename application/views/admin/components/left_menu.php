@@ -103,22 +103,24 @@ if ($theme[0]->sub_menu_icons != '') {
         <span><?php echo $this->lang->line('dashboard_title'); ?></span> </a> </li>
 
     <!-- Dynamic Dashboard -->
-    <?php if ($user_info[0]->user_role_id != 3) { ?>
+    <?php /* if ($user_info[0]->user_role_id != 3) { ?>
       <li class="<?php if ($this->router->fetch_class() == 'dynamic_dashboard')
         echo 'active'; ?>">
         <a href="<?php echo site_url('admin/dynamic_dashboard'); ?>">
           <i class="fa fa-slack"></i> <span> Dynamic Dashboard</span>
         </a>
       </li>
-    <?php } ?>
+    <?php } */ ?>
 
     <!-- To Do List -->
+    <?php /* ?>
     <li class="<?php if ($this->router->fetch_class() == 'todo')
       echo 'active'; ?>">
       <a href="<?php echo site_url('admin/todo'); ?>">
         <i class="fa fa-check-square-o"></i> <span>To-Do List</span>
       </a>
     </li>
+    <?php */ ?>
 
     <!-- Accounts -->
     <?php if (in_array('2001', $role_resources_ids) || in_array('2002', $role_resources_ids) || in_array('2003', $role_resources_ids)) { ?>
@@ -309,6 +311,7 @@ if ($theme[0]->sub_menu_icons != '') {
     <!-- Hr -->
     <?php
     $pending_bookings_count = 0;
+    /*
     if (in_array($user_info[0]->user_role_id, [1, 2, 4])) {
       $ci =& get_instance();
       if (!isset($ci->Room_management_model)) {
@@ -316,8 +319,9 @@ if ($theme[0]->sub_menu_icons != '') {
       }
       $pending_bookings_count = $ci->Room_management_model->count_pending_bookings();
     }
+    */
     ?>
-    <?php if (in_array('27', $role_resources_ids) || in_array('28', $role_resources_ids) || in_array('29', $role_resources_ids) || in_array('30', $role_resources_ids) || in_array('31', $role_resources_ids) || in_array('7', $role_resources_ids) || in_array('8', $role_resources_ids) || in_array('46', $role_resources_ids) || in_array('123', $role_resources_ids) || in_array('130', $role_resources_ids) || in_array('377', $role_resources_ids) || in_array('389', $role_resources_ids) || in_array('401', $role_resources_ids) || in_array('1001', $role_resources_ids)) { ?>
+    <?php if (in_array('27', $role_resources_ids) || in_array('28', $role_resources_ids) || in_array('29', $role_resources_ids) || in_array('30', $role_resources_ids) || in_array('31', $role_resources_ids) || in_array('7', $role_resources_ids) || in_array('8', $role_resources_ids) || in_array('46', $role_resources_ids) || in_array('123', $role_resources_ids) || in_array('130', $role_resources_ids) || in_array('377', $role_resources_ids) || in_array('389', $role_resources_ids) || in_array('401', $role_resources_ids) || in_array('1001', $role_resources_ids) || $user_info[0]->user_role_id != 3) { ?>
       <li class="<?php if (!empty($arr_mod['attnd_open']))
         echo $arr_mod['attnd_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-users"></i> <span> HR </span> <?php if ($pending_bookings_count > 0): ?>
@@ -328,12 +332,12 @@ if ($theme[0]->sub_menu_icons != '') {
         <ul class="treeview-menu">
 
           <!-- employee -->
-          <?php if (in_array('389', $role_resources_ids)) { ?>
+          <?php /* if (in_array('389', $role_resources_ids)) { ?>
             <li class="sidenav-link <?php if (!empty($arr_mod['emp_atten_active']))
               echo $arr_mod['emp_atten_active']; ?>"> <a
                 href="<?php echo site_url('admin/attendance/employee_attendance'); ?>"><i
                   class="fa <?php echo $submenuicon; ?>"></i>Attendance</a> </li>
-          <?php } ?>
+          <?php } */ ?>
 
           <?php if (in_array('123', $role_resources_ids)) { ?>
             <li class="sidenav-link <?php if (!empty($arr_mod['emp_move_new']))
@@ -344,7 +348,7 @@ if ($theme[0]->sub_menu_icons != '') {
               echo $arr_mod['emp_move_active']; ?>"> <a href="<?php echo site_url("admin/attendance/employee_movement"); ?>"><i class="fa <?php echo $submenuicon; ?>"></i>Movement</a></li> -->
           <?php } ?>
 
-          <?php if (in_array('124', $role_resources_ids)) { ?>
+          <?php /* if (in_array('124', $role_resources_ids)) { ?>
             <li class="sidenav-link <?php if (!empty($arr_mod['emp_leave']))
               echo $arr_mod['emp_leave']; ?>"> <a
                 href="<?php echo site_url("admin/leave/emp_leave"); ?>"><i
@@ -363,7 +367,7 @@ if ($theme[0]->sub_menu_icons != '') {
               echo $arr_mod['emp_holyday']; ?>"> <a
                 href="<?php echo site_url("admin/leave/emp_holyday"); ?>"><i
                   class="fa <?php echo $submenuicon; ?>"></i>Holiday</a></li>
-          <?php } ?>
+          <?php } */ ?>
           <!-- Employee -->
 
           <!-- Meeting Room Management -->
@@ -408,7 +412,7 @@ if ($theme[0]->sub_menu_icons != '') {
             </li>
           <?php endif; ?>
           <!-- New Movement -->
-          <?php if($session['role_id'] == 1){ ?>
+          <?php /* if($session['role_id'] == 1){ ?>
           <!-- Biometric Device Management -->
           <li class="<?php if (!empty($arr_mod['biometric_open']))
             echo $arr_mod['biometric_open']; ?> treeview">
@@ -577,7 +581,7 @@ if ($theme[0]->sub_menu_icons != '') {
               echo $arr_mod['issue_active']; ?>"><a
                 href="<?php echo site_url('admin/employees/employee_issue'); ?>"><i
                   class="fa <?php echo $submenuicon; ?>"></i> Add Issues </a></li> -->
-          <?php } ?>
+          <?php } */ ?>
         </ul>
       </li>
     <?php } ?>
@@ -677,7 +681,7 @@ if ($theme[0]->sub_menu_icons != '') {
 
     <!-- Payroll -->
     <?php //if($system[0]->module_payroll=='yes'){ ?>
-    <?php if (in_array('32', $role_resources_ids) || in_array('33', $role_resources_ids) || in_array('34', $role_resources_ids) || in_array('35', $role_resources_ids) || in_array('36', $role_resources_ids) || in_array('37', $role_resources_ids) || in_array('38', $role_resources_ids) || in_array('39', $role_resources_ids) || in_array('125', $role_resources_ids) || in_array('126', $role_resources_ids) || in_array('127', $role_resources_ids) || in_array('390', $role_resources_ids)) { ?>
+    <?php /* if (in_array('32', $role_resources_ids) || in_array('33', $role_resources_ids) || in_array('34', $role_resources_ids) || in_array('35', $role_resources_ids) || in_array('36', $role_resources_ids) || in_array('37', $role_resources_ids) || in_array('38', $role_resources_ids) || in_array('39', $role_resources_ids) || in_array('125', $role_resources_ids) || in_array('126', $role_resources_ids) || in_array('127', $role_resources_ids) || in_array('390', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['payrl_open']))
         echo $arr_mod['payrl_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-usd"></i> <span><?php echo $this->lang->line('left_payroll'); ?></span> <span
@@ -766,12 +770,12 @@ if ($theme[0]->sub_menu_icons != '') {
           <?php } ?>
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
     <?php //} ?>
     <!-- Payroll -->
 
     <!-- Store -->
-    <?php if (in_array('1030', $role_resources_ids) || in_array('1031', $role_resources_ids) || in_array('1033', $role_resources_ids) || in_array('1070', $role_resources_ids) || in_array('1071', $role_resources_ids) || in_array('1072', $role_resources_ids) || in_array('1073', $role_resources_ids) || in_array('1074', $role_resources_ids) || in_array('1075', $role_resources_ids) || in_array('1076', $role_resources_ids) || in_array('1080', $role_resources_ids) || in_array('1081', $role_resources_ids) || in_array('1082', $role_resources_ids) || in_array('1083', $role_resources_ids) || in_array('1084', $role_resources_ids) || in_array('1085', $role_resources_ids) || in_array('1041', $role_resources_ids)) { ?>
+    <?php /* if (in_array('1030', $role_resources_ids) || in_array('1031', $role_resources_ids) || in_array('1033', $role_resources_ids) || in_array('1070', $role_resources_ids) || in_array('1071', $role_resources_ids) || in_array('1072', $role_resources_ids) || in_array('1073', $role_resources_ids) || in_array('1074', $role_resources_ids) || in_array('1075', $role_resources_ids) || in_array('1076', $role_resources_ids) || in_array('1080', $role_resources_ids) || in_array('1081', $role_resources_ids) || in_array('1082', $role_resources_ids) || in_array('1083', $role_resources_ids) || in_array('1084', $role_resources_ids) || in_array('1085', $role_resources_ids) || in_array('1041', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['invtry_open']))
         echo $arr_mod['invtry_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-cart-arrow-down"></i> Store <span class="badge badge-pill "
@@ -981,11 +985,11 @@ if ($theme[0]->sub_menu_icons != '') {
 
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
     <!-- Store -->
 
     <!-- Inventory / Accessories  -->
-    <?php if (in_array('1100', $role_resources_ids) || in_array('1101', $role_resources_ids) || in_array('1102', $role_resources_ids) || in_array('1103', $role_resources_ids) || in_array('1110', $role_resources_ids) || in_array('1111', $role_resources_ids) || in_array('1112', $role_resources_ids) || in_array('1113', $role_resources_ids)) { ?>
+    <?php /* if (in_array('1100', $role_resources_ids) || in_array('1101', $role_resources_ids) || in_array('1102', $role_resources_ids) || in_array('1103', $role_resources_ids) || in_array('1110', $role_resources_ids) || in_array('1111', $role_resources_ids) || in_array('1112', $role_resources_ids) || in_array('1113', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['access_open']))
         echo $arr_mod['access_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-houzz"></i> Inventory <span class="pull-right-container"> <i
@@ -1060,12 +1064,12 @@ if ($theme[0]->sub_menu_icons != '') {
 
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
     <!-- Inventory / Accessories -->
 
 
     <!-- Documents  -->
-    <?php if (in_array('1131', $role_resources_ids) || in_array('1132', $role_resources_ids) || in_array('1133', $role_resources_ids) || in_array('1134', $role_resources_ids)) { ?>
+    <?php /* if (in_array('1131', $role_resources_ids) || in_array('1132', $role_resources_ids) || in_array('1133', $role_resources_ids) || in_array('1134', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['document_open']))
         echo $arr_mod['document_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-houzz"></i> Documents <span class="pull-right-container"> <i
@@ -1098,7 +1102,7 @@ if ($theme[0]->sub_menu_icons != '') {
           <?php } ?>
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
     <!-- Documents-->
 
 
@@ -1133,7 +1137,7 @@ if ($theme[0]->sub_menu_icons != '') {
 
 
     <?php //if($system[0]->module_projects_tasks=='true'){ ?>
-    <?php if ($user_info[0]->user_role_id == 3 || in_array('44', $role_resources_ids) || in_array('45', $role_resources_ids) || in_array('104', $role_resources_ids) || in_array('119', $role_resources_ids) || in_array('122', $role_resources_ids)) { ?>
+    <?php /* if ($user_info[0]->user_role_id == 3 || in_array('44', $role_resources_ids) || in_array('45', $role_resources_ids) || in_array('104', $role_resources_ids) || in_array('119', $role_resources_ids) || in_array('122', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['project_open']))
         echo $arr_mod['project_open']; ?> treeview"> 
         <!-- <a href="#"> <i
@@ -1220,10 +1224,10 @@ if ($theme[0]->sub_menu_icons != '') {
         <?php } ?> -->
         </ul>
       </li>
-    <?php } ?> 
+    <?php } */ ?> 
 
 
-    <?php if (in_array('87', $role_resources_ids) || in_array('410', $role_resources_ids) || in_array('415', $role_resources_ids) || in_array('121', $role_resources_ids) || in_array('330', $role_resources_ids)) { ?>
+    <?php /* if (in_array('87', $role_resources_ids) || in_array('410', $role_resources_ids) || in_array('415', $role_resources_ids) || in_array('121', $role_resources_ids) || in_array('330', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['hr_quote_manager_open']))
         echo $arr_mod['hr_quote_manager_open']; ?> treeview">
         <a href="#"> <i class="fa fa-calendar-plus-o"></i>
@@ -1269,8 +1273,8 @@ if ($theme[0]->sub_menu_icons != '') {
           <?php } ?>
         </ul>
       </li>
-    <?php } ?>
-    <?php if ($system[0]->module_training == 'true') { ?>
+    <?php } */ ?>
+    <?php /* if ($system[0]->module_training == 'true') { ?>
       <?php if (in_array('53', $role_resources_ids) || in_array('54', $role_resources_ids) || in_array('55', $role_resources_ids) || in_array('56', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['training_open']))
           echo $arr_mod['training_open']; ?> treeview"> <a href="#"> <i
@@ -1298,8 +1302,8 @@ if ($theme[0]->sub_menu_icons != '') {
           </ul>
         </li>
       <?php } ?>
-    <?php } ?>
-    <?php if ($system[0]->module_performance == 'yes') { ?>
+    <?php } */ ?>
+    <?php /* if ($system[0]->module_performance == 'yes') { ?>
       <?php if (in_array('40', $role_resources_ids) || in_array('41', $role_resources_ids) || in_array('42', $role_resources_ids) || in_array('107', $role_resources_ids) || in_array('108', $role_resources_ids) || in_array('372', $role_resources_ids) || in_array('373', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['performance_open']))
           echo $arr_mod['performance_open']; ?> treeview">
@@ -1338,9 +1342,9 @@ if ($theme[0]->sub_menu_icons != '') {
           </ul>
         </li>
       <?php } ?>
-    <?php } ?>
+    <?php } */ ?>
 
-    <?php if ($system[0]->module_accounting == 'true') { ?>
+    <?php /* if ($system[0]->module_accounting == 'true') { ?>
       <?php if (in_array('71', $role_resources_ids) || in_array('72', $role_resources_ids) || in_array('73', $role_resources_ids) || in_array('74', $role_resources_ids) || in_array('75', $role_resources_ids) || in_array('76', $role_resources_ids) || in_array('77', $role_resources_ids) || in_array('78', $role_resources_ids) || in_array('79', $role_resources_ids) || in_array('80', $role_resources_ids) || in_array('81', $role_resources_ids) || in_array('82', $role_resources_ids) || in_array('83', $role_resources_ids) || in_array('84', $role_resources_ids) || in_array('85', $role_resources_ids) || in_array('86', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['hr_acc_open']))
           echo $arr_mod['hr_acc_open']; ?> treeview"> <a href="#"> <i
@@ -1447,22 +1451,22 @@ if ($theme[0]->sub_menu_icons != '') {
           </ul>
         </li>
       <?php } ?>
-    <?php } ?>
-    <?php if (in_array('95', $role_resources_ids)) { ?>
+    <?php } */ ?>
+    <?php /* if (in_array('95', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['calendar_hr_active']))
         echo $arr_mod['calendar_hr_active']; ?>"> <a
           href="<?php echo site_url('admin/calendar/hr'); ?>"> <i class="fa fa-calendar"></i>
           <span><?php echo $this->lang->line('xin_hr_calendar_title'); ?></span> </a> </li>
-    <?php } ?>
-    <?php if ($system[0]->module_inquiry == 'true') { ?>
+    <?php } */ ?>
+    <?php /* if ($system[0]->module_inquiry == 'true') { ?>
       <?php if (in_array('43', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['ticket_active']))
           echo $arr_mod['ticket_active']; ?>"> <a
             href="<?php echo site_url('admin/tickets'); ?>"> <i class="fa fa-ticket"></i>
             <span><?php echo $this->lang->line('left_tickets'); ?></span> </a> </li>
       <?php } ?>
-    <?php } ?>
-    <?php if ($system[0]->module_recruitment == 'true') { ?>
+    <?php } */ ?>
+    <?php /* if ($system[0]->module_recruitment == 'true') { ?>
       <?php if (in_array('48', $role_resources_ids) || in_array('49', $role_resources_ids) || in_array('51', $role_resources_ids) || in_array('52', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['recruit_open']))
           echo $arr_mod['recruit_open']; ?> treeview"> <a href="#"> <i
@@ -1497,17 +1501,17 @@ if ($theme[0]->sub_menu_icons != '') {
           </ul>
         </li>
       <?php } ?>
-    <?php } ?>
-    <?php if ($system[0]->module_files == 'true') { ?>
+    <?php } */ ?>
+    <?php /* if ($system[0]->module_files == 'true') { ?>
       <?php if (in_array('47', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['file_active']))
           echo $arr_mod['file_active']; ?>"> <a
             href="<?php echo site_url('admin/files'); ?>"> <i class="fa fa-file-text-o"></i>
             <span><?php echo $this->lang->line('xin_files_manager'); ?></span> </a> </li>
       <?php } ?>
-    <?php } ?>
+    <?php } */ ?>
 
-    <?php if ($system[0]->module_assets == 'true') { ?>
+    <?php /* if ($system[0]->module_assets == 'true') { ?>
       <?php if (in_array('24', $role_resources_ids) || in_array('25', $role_resources_ids) || in_array('26', $role_resources_ids)) { ?>
         <li class="<?php if (!empty($arr_mod['asst_open']))
           echo $arr_mod['asst_open']; ?> treeview"> <a href="#"> <i
@@ -1529,9 +1533,10 @@ if ($theme[0]->sub_menu_icons != '') {
           </ul>
         </li>
       <?php } ?>
-    <?php } ?>
+    <?php } */ ?>
 
 
+    <?php /* ?>
     <li class="<?php if (!empty($arr_mod['hr_events_open']))
       echo $arr_mod['hr_events_open']; ?> treeview">
        <!-- <a href="#"> <i
@@ -1577,9 +1582,10 @@ if ($theme[0]->sub_menu_icons != '') {
         <?php } ?>
       </ul>
     </li>
+    <?php */ ?>
 
 
-    <?php if (in_array('111', $role_resources_ids) || in_array('112', $role_resources_ids) || in_array('113', $role_resources_ids) || in_array('114', $role_resources_ids) || in_array('115', $role_resources_ids) || in_array('116', $role_resources_ids) || in_array('117', $role_resources_ids)) { ?>
+    <?php /* if (in_array('111', $role_resources_ids) || in_array('112', $role_resources_ids) || in_array('113', $role_resources_ids) || in_array('114', $role_resources_ids) || in_array('115', $role_resources_ids) || in_array('116', $role_resources_ids) || in_array('117', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['reports_open']))
         echo $arr_mod['reports_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-bar-chart"></i> <span><?php echo $this->lang->line('xin_hr_report_title'); ?></span> <span
@@ -1653,9 +1659,9 @@ if ($theme[0]->sub_menu_icons != '') {
           <?php } ?>
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
 
-    <?php if (in_array('57', $role_resources_ids) || in_array('60', $role_resources_ids) || in_array('61', $role_resources_ids) || in_array('61', $role_resources_ids) || in_array('62', $role_resources_ids) || in_array('63', $role_resources_ids) || in_array('89', $role_resources_ids) || in_array('93', $role_resources_ids)) { ?>
+    <?php /* if (in_array('57', $role_resources_ids) || in_array('60', $role_resources_ids) || in_array('61', $role_resources_ids) || in_array('61', $role_resources_ids) || in_array('62', $role_resources_ids) || in_array('63', $role_resources_ids) || in_array('89', $role_resources_ids) || in_array('93', $role_resources_ids)) { ?>
       <li class="<?php if (!empty($arr_mod['system_open']))
         echo $arr_mod['system_open']; ?> treeview"> <a href="#"> <i
             class="fa fa-cog"></i> <span><?php echo $this->lang->line('xin_system'); ?></span> <span
@@ -1732,7 +1738,7 @@ if ($theme[0]->sub_menu_icons != '') {
           <?php } ?>
         </ul>
       </li>
-    <?php } ?>
+    <?php } */ ?>
     <li> &nbsp; </li>
   </ul>
 </section>

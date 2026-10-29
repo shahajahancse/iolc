@@ -1,11 +1,12 @@
 application/cache/
+.user.ini
 
 #codeigniter 3
 application/logs/
 application/config/database.php
+application/config/config.php
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
 uploads/
 attn_data/
-
