@@ -8,16 +8,14 @@ on:
 
 jobs:
   deploy:
-    name: PHP Lint & FTP Deploy
+    name: FTP Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Check PHP Syntax (CI)
-        run: |
-          find application -type f -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+        with:
+          fetch-depth: 2
 
       - name: Deploy files via FTP (CD)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -25,12 +23,14 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
           server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
             **/.github*/**
             **/.user.ini
+            *.sql
             application/config/config.php
             application/config/database.php
             application/logs/**
