@@ -1512,6 +1512,7 @@ class Attendance_model extends CI_Model
             $this->db->where_in('user_id', $left_employee);
         }
         $this->db->where('user_role_id', 3);
+        $this->db->where_not_in('user_id', array(2, 121));
         $this->db->order_by('user_id', 'asc');
         return $result = $this->db->get('xin_employees')->result();
         // dd($result);

@@ -75,12 +75,12 @@ class Employees_model extends CI_Model {
 
  	// get all employes
 	public function get_employees() {
-		$this->db->order_by("user_id", 'DESC')->where('is_active',1)->where('user_id !=', 121);
+		$this->db->order_by("user_id", 'DESC')->where('is_active',1)->where_not_in('user_id', array(2, 121));
 		return $this->db->get("xin_employees");
 	}
 	// get all employes > not super admin
 	public function get_employees_for_other($cid,$user_id) {
-		$sql = 'SELECT * FROM xin_employees WHERE user_id != ? and company_id = ? and user_role_id=3 and user_id='.$user_id;
+		$sql = 'SELECT * FROM xin_employees WHERE user_id != ? and company_id = ? and user_role_id=3 and user_id NOT IN (2, 121) and user_id='.$user_id;
 		$binds = array(1,$cid);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -88,7 +88,7 @@ class Employees_model extends CI_Model {
 	// get all employes > not super admin
 	public function get_employees_for_location($cid) {
 
-		$sql = 'SELECT * FROM xin_employees WHERE user_id != ? and location_id = ? and user_id != 121';
+		$sql = 'SELECT * FROM xin_employees WHERE user_id != ? and location_id = ? and user_id NOT IN (2, 121)';
 		$binds = array(1,$cid);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -96,7 +96,7 @@ class Employees_model extends CI_Model {
 	// get all employes|company>
 	public function get_company_employees_flt($cid) {
 
-		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and user_id != 121';
+		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and user_id NOT IN (2, 121)';
 		$binds = array($cid);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -104,7 +104,7 @@ class Employees_model extends CI_Model {
 	// get all employes>company|location >
 	public function get_company_location_employees_flt($cid,$lid) {
 
-		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and user_id != 121';
+		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and user_id NOT IN (2, 121)';
 		$binds = array($cid,$lid);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -112,7 +112,7 @@ class Employees_model extends CI_Model {
 	// get all employes>company|location|department >
 	public function get_company_location_department_employees_flt($cid,$lid,$dep_id) {
 
-		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and department_id = ? and user_id != 121';
+		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and department_id = ? and user_id NOT IN (2, 121)';
 		$binds = array($cid,$lid,$dep_id);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -120,7 +120,7 @@ class Employees_model extends CI_Model {
 	// get all employes>company|location|department|designation >
 	public function get_company_location_department_designation_employees_flt($cid,$lid,$dep_id,$des_id) {
 
-		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and department_id = ? and designation_id = ? and user_id != 121';
+		$sql = 'SELECT * FROM xin_employees WHERE company_id = ? and location_id = ? and department_id = ? and designation_id = ? and user_id NOT IN (2, 121)';
 		$binds = array($cid,$lid,$dep_id,$des_id);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -128,7 +128,7 @@ class Employees_model extends CI_Model {
 	// get all employes >
 	public function get_employees_payslip() {
 
-		$sql = 'SELECT * FROM xin_employees WHERE user_role_id != ?';
+		$sql = 'SELECT * FROM xin_employees WHERE user_role_id != ? and user_id NOT IN (2, 121)';
 		$binds = array(1);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -137,7 +137,7 @@ class Employees_model extends CI_Model {
 	// get employes
 	public function get_attendance_employees() {
 
-		$sql = 'SELECT * FROM xin_employees WHERE is_active = ?';
+		$sql = 'SELECT * FROM xin_employees WHERE is_active = ? and user_id NOT IN (2, 121)';
 		$binds = array(1);
 		$query = $this->db->query($sql, $binds);
 
@@ -145,7 +145,7 @@ class Employees_model extends CI_Model {
 	}
 	// get employes with location
 	public function get_attendance_location_employees($user_id) {
-		$sql = 'SELECT * FROM xin_employees WHERE  is_active = ? and user_role_id=3 and user_id='.$user_id;
+		$sql = 'SELECT * FROM xin_employees WHERE  is_active = ? and user_role_id=3 and user_id NOT IN (2, 121) and user_id='.$user_id;
 		$binds = array(1);
 		$query = $this->db->query($sql, $binds);
 	    return $query;
@@ -153,7 +153,7 @@ class Employees_model extends CI_Model {
 
 	// get total number of employees
 	public function get_total_employees() {
-	  $query = $this->db->where_in('status', array(1,4,5))->get("xin_employees");
+	  $query = $this->db->where_in('status', array(1,4,5))->where_not_in('user_id', array(2, 121))->get("xin_employees");
 	  return $query->num_rows();
 	}
 	public function get_total_present() {

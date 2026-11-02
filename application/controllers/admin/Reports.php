@@ -1367,6 +1367,7 @@ class Reports extends MY_Controller
 		}
         $this->db->where('company_id', 1);
         $this->db->where('user_role_id', 3);
+        $this->db->where_not_in('user_id', array(2, 121));
         $this->db->order_by('user_id', 'asc');
         $data["employees"] = $this->db->get('xin_employees')->result();
         echo json_encode($data);
@@ -1406,6 +1407,7 @@ class Reports extends MY_Controller
 		//designation end
         $this->db->where('company_id', 1);
         $this->db->where('user_role_id', 3);
+        $this->db->where_not_in('user_id', array(2, 121));
         $this->db->order_by('user_id', 'asc');
         $data["employees"] = $this->db->get('xin_employees')->result();
         echo json_encode($data);
@@ -1436,7 +1438,7 @@ class Reports extends MY_Controller
 
 	public function employee_bonus(){
 
-		$all_employee=$this->db->where_in('status',[1,4,5])->get('xin_employees')->result();
+		$all_employee=$this->db->where_in('status',[1,4,5])->where_not_in('user_id', array(2, 121))->get('xin_employees')->result();
 
 		$exist_employee=[];
 		$no_intern_one_year=[];
@@ -1668,7 +1670,7 @@ class Reports extends MY_Controller
 
 
     	$first_date = $this->input->post('first_date');
-		$all_employee=$this->db->where_in('status',[1,4,5])->get('xin_employees')->result();
+		$all_employee=$this->db->where_in('status',[1,4,5])->where_not_in('user_id', array(2, 121))->get('xin_employees')->result();
 
 		$exist_employee=[];
 		$no_intern_one_year=[];
@@ -2243,7 +2245,7 @@ class Reports extends MY_Controller
 		if(empty($session)){
 			redirect('auth/');
 		}
-		$data['all_employees'] = $this->db->where_in('status', [1,4,5])->get('xin_employees')->result();
+		$data['all_employees'] = $this->db->where_in('status', [1,4,5])->where_not_in('user_id', array(2, 121))->get('xin_employees')->result();
 		$data['title'] = $this->lang->line('xin_hr_report_employees').' | '.$this->Xin_model->site_title();
 		$data['breadcrumbs'] = $this->lang->line('xin_hr_report_employees');
 		$data['subview'] = $this->load->view("admin/reports/employees_letter", $data, TRUE);

@@ -242,6 +242,7 @@ class Employees extends MY_Controller {
 
 		$data = array();
         foreach($employee->result() as $key => $r) {
+			if ($r->user_id == 2 || $r->user_id == 121) continue;
 			// get company
 			$company = $this->Xin_model->read_company_info($r->company_id);
 			if(!is_null($company)){
