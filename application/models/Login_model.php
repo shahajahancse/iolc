@@ -26,18 +26,9 @@
 	// Read data using username and password
 	public function login($data) {
 	
-		$system = $this->read_setting_info(1);
-		if($system[0]->employee_login_id=='username'):		
-			$sql = 'SELECT * FROM xin_employees WHERE username = ? AND is_active = ?';
-			$binds = array($data['username'],1);
-			$query = $this->db->query($sql, $binds);
-			
-		else:
-			$sql = 'SELECT * FROM xin_employees WHERE email = ? AND is_active = ?';
-			$binds = array($data['username'],1);
-			$query = $this->db->query($sql, $binds);
-			
-		endif;		
+		$sql = 'SELECT * FROM xin_employees WHERE (username = ? OR email = ?) AND is_active = ?';
+		$binds = array($data['username'], $data['username'], 1);
+		$query = $this->db->query($sql, $binds);
 		
 	    $options = array('cost' => 12);
 		$password_hash = password_hash($data['password'], PASSWORD_BCRYPT, $options);
@@ -70,16 +61,9 @@
 	// Read data from database to show data in admin page
 	public function read_user_information($username) {
 	
-		$system = $this->read_setting_info(1);
-		if($system[0]->employee_login_id=='username'):
-			$sql = 'SELECT * FROM xin_employees WHERE username = ?';
-			$binds = array($username);
-			$query = $this->db->query($sql, $binds);
-		else:
-			$sql = 'SELECT * FROM xin_employees WHERE email = ?';
-			$binds = array($username);
-			$query = $this->db->query($sql, $binds);
-		endif;
+		$sql = 'SELECT * FROM xin_employees WHERE username = ? OR email = ?';
+		$binds = array($username, $username);
+		$query = $this->db->query($sql, $binds);
 		
 		if ($query->num_rows() > 0) {
 			return $query->result();

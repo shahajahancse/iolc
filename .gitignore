@@ -10,3 +10,4 @@ application/config/config.php
 /vendor/
 uploads/
 attn_data/
+*.sql
