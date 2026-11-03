@@ -938,7 +938,7 @@ class New_movement extends MY_Controller
             } else {
                 $this->db->where('is_active', 1);
             }
-            $this->db->where_not_in('xin_employees.user_id', array(2, 121));
+            $this->db->where_not_in('xin_employees.user_id', array(2, 3, 121));
             $this->db->select('xin_employees.*, xin_departments.department_name, xin_designations.designation_name');
             $this->db->join('xin_departments', 'xin_employees.department_id = xin_departments.department_id', 'left');
             $this->db->join('xin_designations', 'xin_employees.designation_id = xin_designations.designation_id', 'left');

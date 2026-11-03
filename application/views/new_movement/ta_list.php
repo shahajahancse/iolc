@@ -75,7 +75,7 @@
     .status-running { background: #000; color: #fff; border-color: #000; }
 </style>
 <div class="movement-box">
-    <?php $emps = $this->db->where_not_in('status', [2,3])->where('user_role_id', 3)->where_not_in('user_id', array(2, 121))->get('xin_employees')->result(); ?>
+    <?php $emps = $this->db->where_not_in('status', [2,3])->where('user_role_id', 3)->where_not_in('user_id', array(2, 3, 121))->get('xin_employees')->result(); ?>
     <div style="display: inline-flex; gap: 10px">
         <h3 style="font-weight: 700; color: #32325d; margin-right: 10px;">Employee TA List </h3>
         <div style="display: inline-block;">

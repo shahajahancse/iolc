@@ -1,7 +1,7 @@
 
 <?php
   $this->db->where_in('status', [1,4,5]);
-  $this->db->where_not_in('user_id', array(2, 121));
+  $this->db->where_not_in('user_id', array(2, 3, 121));
   $this->db->order_by('is_emp_lead', 'DESC');
   $employees = $this->db->get('xin_employees')->result();
 ?>
@@ -39,7 +39,7 @@ th td{
           <?php
             
             $this->db->where('is_emp_lead', 2);
-            $this->db->where_not_in('user_id', array($e->user_id, 2, 121));
+            $this->db->where_not_in('user_id', array($e->user_id, 2, 3, 121));
             $employ = $this->db->get('xin_employees')->result();
            foreach($employ as $employee) { ?>
             <option <?= $e->lead_user_id==$employee->user_id ? 'selected' : ''?> value="<?=$employee->user_id ?>"><?= $employee->first_name.' '.$employee->last_name ?></option>

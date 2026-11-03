@@ -1929,14 +1929,14 @@ class Xin_model extends CI_Model {
 	// get all employees status
 	public function all_employees_status()
 	{
-	  $query = $this->db->query("SELECT * from xin_employees WHERE user_id NOT IN (2, 121)");
+	  $query = $this->db->query("SELECT * from xin_employees WHERE user_id NOT IN (2, 3, 121)");
   	  return $query;
 	}
 
 	// get all employees attendance calendar
 	public function all_employees_attendance_calendar()
 	{
-	  $query = $this->db->query("SELECT * from xin_employees WHERE user_id NOT IN (2, 121)");
+	  $query = $this->db->query("SELECT * from xin_employees WHERE user_id NOT IN (2, 3, 121)");
   	  return $query;
 	}
 
@@ -2002,14 +2002,14 @@ class Xin_model extends CI_Model {
 	// get all employees
 	public function all_employees()
 	{
-	  $query = $this->db->query("SELECT * from xin_employees where user_role_id!=1 AND user_id NOT IN (2, 121)");
+	  $query = $this->db->query("SELECT * from xin_employees where user_role_id!=1 AND user_id NOT IN (2, 3, 121)");
   	  return $query->result();
 	}
 
 	// get employees for task breakdowns
 	public function get_task_employees()
 	{
-	  $query = $this->db->query("SELECT * from xin_employees where user_role_id=3 AND status NOT IN (2,3) AND user_id NOT IN (2, 121)");
+	  $query = $this->db->query("SELECT * from xin_employees where user_role_id=3 AND status NOT IN (2,3) AND user_id NOT IN (2, 3, 121)");
   	  return $query->result();
 	}
 
@@ -2038,14 +2038,14 @@ class Xin_model extends CI_Model {
 	  	$query->where_in('status', $status);
 	  }
 
-	  $query->where('status !=', 0)->where_not_in('user_id', array(2, 121));
+	  $query->where('status !=', 0)->where_not_in('user_id', array(2, 3, 121));
   	  return $query->get('xin_employees')->result();
 	}
 
 	// get all employees
 	public function all_active_employees()
 	{
-	 	$sql = 'SELECT * FROM xin_employees WHERE is_active = ? AND user_id NOT IN (2, 121)';
+	 	$sql = 'SELECT * FROM xin_employees WHERE is_active = ? AND user_id NOT IN (2, 3, 121)';
 		$binds = array(1);
 		$query = $this->db->query($sql, $binds);
   	  	return $query->result();
@@ -2054,7 +2054,7 @@ class Xin_model extends CI_Model {
 	// get male
 	public function male_employees()
 	{
-		$sql = 'SELECT * FROM xin_employees WHERE gender = ? AND user_id NOT IN (2, 121)';
+		$sql = 'SELECT * FROM xin_employees WHERE gender = ? AND user_id NOT IN (2, 3, 121)';
 		$binds = array('Male');
 		$query = $this->db->query($sql, $binds);
 
@@ -2072,7 +2072,7 @@ class Xin_model extends CI_Model {
 	// get female
 	public function female_employees()
 	{
-		$sql = 'SELECT * FROM xin_employees WHERE gender = ? AND user_id NOT IN (2, 121)';
+		$sql = 'SELECT * FROM xin_employees WHERE gender = ? AND user_id NOT IN (2, 3, 121)';
 		$binds = array('Female');
 		$query = $this->db->query($sql, $binds);
 		$female_emp = $query->num_rows();

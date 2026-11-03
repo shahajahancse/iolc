@@ -381,7 +381,7 @@
                                 <label for="xin_hr_leave_cat">Team Leader</label>
                                 <select class="form-control" name="is_emp_lead">
                                     <?php
-                                        $team_leads = $this->db->select('user_id,first_name,last_name')->where('is_emp_lead',2)->where_not_in('user_id', array(2, 121))->get('xin_employees')->result();
+                                        $team_leads = $this->db->select('user_id,first_name,last_name')->where('is_emp_lead',2)->where_not_in('user_id', array(2, 3, 121))->get('xin_employees')->result();
                                         foreach($team_leads as $row){
                                     ?>
                                     <option value="<?php echo $row->user_id?>"><?php echo $row->first_name." ".$row->last_name?></option>
