@@ -306,12 +306,21 @@ class New_movement_model extends CI_Model
         $this->db->where('status', 'running');
         $travel = $this->db->get('new_movement_travels')->row();
         if ($travel) {
+            $lat = (!empty($travel->start_lat) && is_numeric($travel->start_lat)) ? $travel->start_lat : null;
+            $lng = (!empty($travel->start_lng) && is_numeric($travel->start_lng)) ? $travel->start_lng : null;
+            if (!$lat || !$lng) {
+                $mov = $this->db->where('id', $movement_id)->get('new_movement_movements')->row();
+                if ($mov) {
+                    $lat = (!empty($mov->start_latitude) && is_numeric($mov->start_latitude)) ? $mov->start_latitude : null;
+                    $lng = (!empty($mov->start_longitude) && is_numeric($mov->start_longitude)) ? $mov->start_longitude : null;
+                }
+            }
             return [
                 'status' => 'Traveling',
                 'location' => $travel->from_location . ' ➔ ' . ($travel->to_location ? $travel->to_location : 'Destination'),
                 'icon' => 'fa-car',
-                'lat' => $travel->start_lat,
-                'lng' => $travel->start_lng
+                'lat' => $lat,
+                'lng' => $lng
             ];
         }
 
@@ -320,20 +329,32 @@ class New_movement_model extends CI_Model
         $this->db->where('end_time', NULL);
         $meeting = $this->db->get('new_movement_meetings')->row();
         if ($meeting) {
+            $lat = (!empty($meeting->latitude) && is_numeric($meeting->latitude)) ? $meeting->latitude : null;
+            $lng = (!empty($meeting->longitude) && is_numeric($meeting->longitude)) ? $meeting->longitude : null;
+            if (!$lat || !$lng) {
+                $mov = $this->db->where('id', $movement_id)->get('new_movement_movements')->row();
+                if ($mov) {
+                    $lat = (!empty($mov->start_latitude) && is_numeric($mov->start_latitude)) ? $mov->start_latitude : null;
+                    $lng = (!empty($mov->start_longitude) && is_numeric($mov->start_longitude)) ? $mov->start_longitude : null;
+                }
+            }
             return [
                 'status' => 'Meeting',
                 'location' => 'With ' . $meeting->client_name . ' at ' . $meeting->location,
                 'icon' => 'fa-users',
-                'lat' => $meeting->latitude,
-                'lng' => $meeting->longitude
+                'lat' => $lat,
+                'lng' => $lng
             ];
         }
 
         // Default active but idle
+        $mov = $this->db->where('id', $movement_id)->get('new_movement_movements')->row();
         return [
             'status' => 'Active',
             'location' => 'In Transit / Decision',
             'icon' => 'fa-clock-o',
+            'lat' => ($mov && !empty($mov->start_latitude) && is_numeric($mov->start_latitude)) ? $mov->start_latitude : null,
+            'lng' => ($mov && !empty($mov->start_longitude) && is_numeric($mov->start_longitude)) ? $mov->start_longitude : null,
         ];
     }
 

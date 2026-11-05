@@ -190,9 +190,19 @@
                                 </span>
                                 <?php if(isset($mov->current_location) && $mov->status == 'active'): ?>
                                     <div style="font-size: 11px; margin-top: 5px; color: #555; max-width: 200px; line-height: 1.2;">
-                                        <button class="btn btn--primary ml-1" onclick="viewLocationModal(<?php echo $mov->current_lat; ?>, <?php echo $mov->current_lng; ?>)" style="padding: 0px 5px; font-size: 10px;">
-                                            <i class="fa fa-eye"></i> View Location
-                                        </button>
+                                        <?php 
+                                            $c_lat = (isset($mov->current_lat) && is_numeric($mov->current_lat) && floatval($mov->current_lat) != 0) ? (float)$mov->current_lat : 0;
+                                            $c_lng = (isset($mov->current_lng) && is_numeric($mov->current_lng) && floatval($mov->current_lng) != 0) ? (float)$mov->current_lng : 0;
+                                        ?>
+                                        <?php if($c_lat != 0 && $c_lng != 0): ?>
+                                            <button type="button" class="btn btn--primary ml-1" onclick="viewLocationModal(<?php echo $c_lat; ?>, <?php echo $c_lng; ?>)" style="padding: 0px 5px; font-size: 10px;">
+                                                <i class="fa fa-eye"></i> View Location
+                                            </button>
+                                        <?php else: ?>
+                                            <button type="button" class="btn btn-secondary ml-1" onclick="alert('Coordinates not available for this movement.')" style="padding: 0px 5px; font-size: 10px; cursor: pointer;">
+                                                <i class="fa fa-map-marker"></i> Location N/A
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
                             </td>
@@ -299,7 +309,9 @@ var modalMap = null;
 var locationMarker = null;
 
 function viewLocationModal(lat, lng) {
-    if(!lat || !lng) {
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    if(!lat || !lng || isNaN(lat) || isNaN(lng)) {
         alert("Coordinates not available");
         return;
     }

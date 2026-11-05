@@ -315,7 +315,9 @@ var modalMap = null;
 var locationMarker = null;
 
 function viewLocationModal(lat, lng) {
-    if(!lat || !lng) {
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    if(!lat || !lng || isNaN(lat) || isNaN(lng)) {
         alert("Coordinates not available");
         return;
     }

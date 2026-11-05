@@ -35,8 +35,8 @@ class New_movement extends MY_Controller
                 $data['movements'][$k]->current_location = $details['location'];
                 $data['movements'][$k]->status_icon = $details['icon'];
                 // Pass Coords
-                $data['movements'][$k]->current_lat = isset($details['lat']) ? $details['lat'] : 0;
-                $data['movements'][$k]->current_lng = isset($details['lng']) ? $details['lng'] : 0;
+                $data['movements'][$k]->current_lat = (!empty($details['lat']) && is_numeric($details['lat'])) ? (float)$details['lat'] : 0;
+                $data['movements'][$k]->current_lng = (!empty($details['lng']) && is_numeric($details['lng'])) ? (float)$details['lng'] : 0;
             } else {
                 $data['movements'][$k]->current_status_text = 'Completed';
                 $data['movements'][$k]->current_location = $mov->start_location;
@@ -270,6 +270,22 @@ class New_movement extends MY_Controller
         }
         // Show only their movements
         $data['movements'] = $this->New_movement_model->get_all_movements($user_id);
+        foreach ($data['movements'] as $k => $mov) {
+            if ($mov->status == 'active') {
+                $details = $this->New_movement_model->get_detailed_status($mov->id);
+                $data['movements'][$k]->current_status_text = $details['status'];
+                $data['movements'][$k]->current_location = $details['location'];
+                $data['movements'][$k]->status_icon = $details['icon'];
+                $data['movements'][$k]->current_lat = (!empty($details['lat']) && is_numeric($details['lat'])) ? (float)$details['lat'] : 0;
+                $data['movements'][$k]->current_lng = (!empty($details['lng']) && is_numeric($details['lng'])) ? (float)$details['lng'] : 0;
+            } else {
+                $data['movements'][$k]->current_status_text = 'Completed';
+                $data['movements'][$k]->current_location = $mov->start_location;
+                $data['movements'][$k]->status_icon = 'fa-check-circle';
+                $data['movements'][$k]->current_lat = 0;
+                $data['movements'][$k]->current_lng = 0;
+            }
+        }
         $data['is_employee'] = true; // Flag for View to show "Start Movement" button
 
         // Dashboard Stats (Calculate TA Amounts)
