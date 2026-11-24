@@ -516,8 +516,10 @@ class API_Controller extends CI_Controller
         header('content-type:application/json; charset=UTF-8');
         if (!empty($http_code)) {
             set_status_header($http_code);
-            if (isset(self::HEADER_STATUS_STRINGS[$http_code])) {
-                header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+            $headers = self::HEADER_STATUS_STRINGS;
+            $code_key = (string)$http_code;
+            if (isset($headers[$code_key])) {
+                header($headers[$code_key], true, $http_code);
             }
         }
 
@@ -539,8 +541,10 @@ class API_Controller extends CI_Controller
         header('content-type:application/json; charset=UTF-8');
         if (!empty($http_code)) {
             set_status_header($http_code);
-            if (isset(self::HEADER_STATUS_STRINGS[$http_code])) {
-                header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+            $headers = self::HEADER_STATUS_STRINGS;
+            $code_key = (string)$http_code;
+            if (isset($headers[$code_key])) {
+                header($headers[$code_key], true, $http_code);
             }
         }
         print_r(json_encode($data));
