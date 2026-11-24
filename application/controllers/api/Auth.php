@@ -42,15 +42,16 @@ class Auth extends API_Controller
         $this->_apiConfig([
             'methods' => ['POST'],
         ]);
+        $username = $this->input->post('username') !== null ? $this->input->post('username') : $this->input->post('email');
         $data = array(
-            'email' => $this->input->post('username'),
+            'email' => $username,
             'password' => $this->input->post('password'),
         );
         $auth = $this->login_auth($data);
         if ($auth['status'] == true) {
             // you user authentication code will go here, you can compare the user with the database or whatever
             $payload = [
-                'id' => $this->input->post('username'),
+                'id' => $username,
                 'other' => $this->input->post('password')
             ];
             // generate a token
@@ -73,17 +74,17 @@ class Auth extends API_Controller
             } else {
                 $this->api_return([
                     'status' => false,
-                    'message' => 'User login unsuccessful.',
+                    'message' => 'Unauthorized User',
                     'data' => [],
-                ], 404);
+                ], 401);
             }
 
         } else {
             $this->api_return([
                 'status' => false,
-                'message' => 'User login unsuccessful.',
+                'message' => 'Unauthorized User',
                 'data' => [],
-            ], 404);
+            ], 401);
         }
     }
     public function logout()
@@ -124,33 +125,31 @@ class Auth extends API_Controller
     // Read data using username and password
     private function login_auth($data)
     {
-      $sql = 'SELECT * FROM xin_employees WHERE email = ? AND is_active = ? AND status IN (?, ?, ?,?)';
-      $binds = array($data['email'], 1, 1, 4, 5,0);
+      $sql = 'SELECT * FROM xin_employees WHERE (email = ? OR username = ?) AND is_active = ? AND status IN (?, ?, ?, ?) AND user_id NOT IN (2, 3, 121)';
+      $binds = array($data['email'], $data['email'], 1, 1, 4, 5, 0);
       $query = $this->db->query($sql, $binds);
-        $options = array('cost' => 12);
-        $password_hash = password_hash($data['password'], PASSWORD_BCRYPT, $options);
-        if ($query->num_rows() > 0) {
-            $rw_password = $query->result();
-            if(password_verify($data['password'], $rw_password[0]->password)) {
-                $data = array(
-                    'user_id' => $rw_password[0]->user_id,
-                    'status' => true,
-                );
-                return $data;
-            } else {
-                $data = array(
-                    'user_id' => '',
-                    'status' => false,
-                );
-                return $data;
-            }
-        } else {
-            $data = array(
-                'user_id' => '',
-                'status' => false,
-            );
-            return $data;
-        }
+      if ($query->num_rows() > 0) {
+          $rw_password = $query->result();
+          if(password_verify($data['password'], $rw_password[0]->password)) {
+              $data = array(
+                  'user_id' => $rw_password[0]->user_id,
+                  'status' => true,
+              );
+              return $data;
+          } else {
+              $data = array(
+                  'user_id' => '',
+                  'status' => false,
+              );
+              return $data;
+          }
+      } else {
+          $data = array(
+              'user_id' => '',
+              'status' => false,
+          );
+          return $data;
+      }
     }
 
 

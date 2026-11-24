@@ -55,11 +55,13 @@ class API_Controller extends CI_Controller
      */
     const HEADER_STATUS_STRINGS = [
         '405' => 'HTTP/1.1 405 Method Not Allowed',
-        '400' => 'BAD REQUEST',
-        '408' => 'Request Timeout',
-        '404' => 'NOT FOUND',
-        '401' => 'UNAUTHORIZED',
-        '200' => 'OK',
+        '403' => 'HTTP/1.1 403 Forbidden',
+        '400' => 'HTTP/1.1 400 Bad Request',
+        '408' => 'HTTP/1.1 408 Request Timeout',
+        '404' => 'HTTP/1.1 404 Not Found',
+        '401' => 'HTTP/1.1 401 Unauthorized',
+        '200' => 'HTTP/1.1 200 OK',
+        '500' => 'HTTP/1.1 500 Internal Server Error',
     ];
 
     /**
@@ -512,7 +514,12 @@ class API_Controller extends CI_Controller
     {
         ob_start();
         header('content-type:application/json; charset=UTF-8');
-        header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+        if (!empty($http_code)) {
+            set_status_header($http_code);
+            if (isset(self::HEADER_STATUS_STRINGS[$http_code])) {
+                header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+            }
+        }
 
         if (!is_array($this->return_other_data)) {
             print_r(json_encode(['status' => false, 'error' => 'Invalid data format']));
@@ -530,8 +537,14 @@ class API_Controller extends CI_Controller
     {
         ob_start();
         header('content-type:application/json; charset=UTF-8');
-        header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+        if (!empty($http_code)) {
+            set_status_header($http_code);
+            if (isset(self::HEADER_STATUS_STRINGS[$http_code])) {
+                header(self::HEADER_STATUS_STRINGS[$http_code], true, $http_code);
+            }
+        }
         print_r(json_encode($data));
         ob_end_flush();
+        exit();
     }
 }
