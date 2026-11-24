@@ -38,19 +38,25 @@ if ( ! function_exists('api_auth'))
             $CI->db->from('xin_employees AS e');
             $CI->db->join('xin_departments AS d', 'e.department_id = d.department_id', 'left');
             $CI->db->join('xin_employee_bankaccount ', 'e.user_id = xin_employee_bankaccount.employee_id', 'left');
-            $CI->db->join('xin_designations AS de', 'e.designation_id = de.designation_id', 'inner');
+            $CI->db->join('xin_designations AS de', 'e.designation_id = de.designation_id', 'left');
             $CI->db->where('e.user_id', $q->user_id);
             $query = $CI->db->get()->row();
 
-            @$imageUrl = base_url('uploads/profile/' . $query->profile_picture);
-            $file_extention = $query->profile_picture;
-            // dd($imageUrl);
+            if (empty($query)) {
+                $CI->db->from('xin_employees AS e');
+                $CI->db->where('e.user_id', $q->user_id);
+                $query = $CI->db->get()->row();
+            }
 
-            if ( $query->profile_picture== "") {
+            $profile_pic = !empty($query->profile_picture) ? $query->profile_picture : '';
+            @$imageUrl = base_url('uploads/profile/' . $profile_pic);
+            $file_extention = $profile_pic;
+
+            if (empty($profile_pic)) {
                 $file_extention = 'default_male.jpg';
-                if ($query->gender == 'Male') {
+                if (!empty($query->gender) && $query->gender == 'Male') {
                     $imageUrl = base_url('uploads/profile/default_male.jpg');
-                }else {
+                } else {
                     $imageUrl = base_url('uploads/profile/default_female.jpg');
                 }
             }   
