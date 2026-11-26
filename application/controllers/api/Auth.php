@@ -135,8 +135,8 @@ class Auth extends API_Controller
                     $this->api_return([
                         'status' => false,
                         'message' => 'Unauthorized User',
-                        'data' => [],
-                    ], 401);
+                        'data' => null,
+                    ], 200);
                 }
             }
 
@@ -144,8 +144,8 @@ class Auth extends API_Controller
             $this->api_return([
                 'status' => false,
                 'message' => 'Unauthorized User',
-                'data' => [],
-            ], 401);
+                'data' => null,
+            ], 200);
         }
     }
     public function logout()
@@ -229,6 +229,58 @@ class Auth extends API_Controller
             'status' => false,
         );
     }
+
+
+    // app version check 
+    /**
+     * App Version Check
+     * 
+     * @link [api/auth/app_version]
+     * @method GET|POST
+     * @return Response
+     */
+    public function app_version()
+    {
+        header("Access-Control-Allow-Origin: *");
+        $this->_apiConfig([
+            'methods' => ['GET', 'POST'],
+        ]);
+
+        $data = [
+            "id" => 1,
+            "app_platform" => "Android",
+            "app_version_code" => "1.0.2",
+            "android_app_version" => 2,
+            "android_app_version_msg" => "1.0.2 is live now",
+            "android_app_link" => "",
+            "is_enable" => 1,
+            "is_hard_update" => 1,
+            "created_at" => "2025-06-04T11:10:40.000000Z",
+            "updated_at" => "2025-06-04T11:10:40.000000Z"
+        ];
+
+        $this->api_return([
+            'status_code' => "200",
+            'message' => 'Service App Version Fetched Successfully',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function version()
+    {
+        return $this->app_version();
+    }
+
+    public function app_version_check()
+    {
+        return $this->app_version();
+    }
+
+    public function check_version()
+    {
+        return $this->app_version();
+    }
+
 
 
     /**
