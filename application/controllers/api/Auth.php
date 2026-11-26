@@ -230,8 +230,6 @@ class Auth extends API_Controller
         );
     }
 
-
-    // app version check 
     /**
      * App Version Check
      * 
